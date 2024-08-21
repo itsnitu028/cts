@@ -1,0 +1,7 @@
+1: Update profile Page
+2: Change Password
+3: Category Mgnt (list/add/update/delete)
+     Category Name
+     Parent Cat
+     Description
+     Image
