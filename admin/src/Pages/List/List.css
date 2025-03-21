@@ -1,4 +1,4 @@
-.myflex-container{
+.flex-container{
     display: flex;
     flex-direction: row;
 }
@@ -8,7 +8,3 @@
 .dum80{
     width: 80%;
 }
-.hc{
-   background: #ae432e !important;
-   color: white !important;
-}  

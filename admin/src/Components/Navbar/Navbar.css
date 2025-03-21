@@ -1,4 +1,4 @@
-.navbar{
+.mynavbar{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -6,10 +6,42 @@
     box-shadow: 0 1px 3px -2px #000000;
     background: white;
 }
-.nav-logo{
+.mynav-logo{
     height: 80px;
     width: 150px;
 }
 .nav-profile{
     width: 75px;
 }
+button.navlogout ,button.text{
+    border: 1px solid black;
+    border-radius: 20px;
+    width: 100px;
+    height: 30px;
+    display: block;
+    padding: 0px 20px;
+  
+    background: linear-gradient(to right, #ae432e 50%, white 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: all .5s ease-out;
+  }
+  
+  button.navlogout:hover {
+    background-position: left bottom;
+  }
+  button.text:hover{
+    background-position: left bottom;
+  }
+button.navlogout {
+    text-align: center;
+    font-size: 16px;
+    line-height: 30px; 
+    color: black;
+    transition: all .6s ease-out;
+    display: block;
+  }
+  
+  button:hover {
+    color: white;  
+  }

@@ -8,12 +8,12 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <div className='navbar'>
-      <img src={aplogo} alt='' className='nav-logo' />
+    <div className='mynavbar'>
+      <img src={aplogo} alt='' className='mynav-logo' />
       {/* <img src={navProfile} alt='' className='nav-profile' /> */}
      
-      {localStorage.getItem('auth-token')?<button onClick={()=>{localStorage.removeItem('auth-token');window.location.replace('/')}}>Logout</button>:
-      <Link to={'/login'} style={{textDecoration:"none"}} ><button>Login</button>   </Link> }
+      {localStorage.getItem('auth-token')?<button className='navlogout' onClick={()=>{localStorage.removeItem('auth-token');window.location.replace('/')}}>Logout</button>:
+      <Link to={'/login'} style={{textDecoration:"none"}} ><button className='text'>Login</button>   </Link> }
 
    
     </div>

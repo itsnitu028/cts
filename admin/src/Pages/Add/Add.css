@@ -1,0 +1,31 @@
+.flex-container{
+    display: flex;
+    flex-direction: row;
+}
+.dum20{
+    width: 20%;
+}
+.dum80{
+    width: 80%;
+}
+.add{
+    background-color: #f6f6f6;
+    width: 80%;
+    margin: auto;
+    padding-bottom: 20px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.add-bg{
+    margin-top: 50px;
+    background-color: #ae432e;
+    color: white;
+    padding: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding-bottom: 10px;
+}
+.add-red{
+    margin-top: 10px;
+    color: #ae432e;
+}
