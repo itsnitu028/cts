@@ -9,6 +9,8 @@
 .mynav-logo{
     height: 80px;
     width: 150px;
+    background: black;
+    border-radius: 5%;
 }
 .nav-profile{
     width: 75px;

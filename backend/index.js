@@ -1,18 +1,22 @@
 const port=4000;
-const express=require('express');
-const app=express();
-const mongoose=require('mongoose');
-const jwt=require('jsonwebtoken');
-const cors=require('cors');
+import express from 'express';
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import cors from 'cors';
+import path from 'path';
+import { error } from 'console';
 
-const path=require('path');
-const { error } = require('console');
+const app = express();
+
+import Users from './model/Users.js';
+import Category from './model/Category.js';
+
 
 app.use(express.json());
 app.use(
     cors({
         origin:'http://localhost:5173',
-        methods:['GET','POST','PUT','DELETE']
+        methods:['GET','POST','PUT','DELETE','PATCH']
     })
 ) 
 
@@ -23,40 +27,18 @@ app.get("/",(req,res)=>{
 })
 
 
-const Users=mongoose.model('Users',{
-    name:{
-        type:String,
-    },
-    email:{
-        type:String,
-        unique:true
-    },
-    password:{
-        type:String
-    },
-    mobile:{
-        type:Number
-    },
-    address:{
-        type:String
-    }
-})
 
-const Category = mongoose.model('Category', {
-    category: {
-        type: String,
-        required: true,
-        unique: true,
-      },
-});
 
 app.post('/addCategory', async (req, res) => {
     try {
-      const category = new Category({
-        category: req.body.category,  // Correcting this line
-      });
+        const { category, parent } = req.body;
+
+        const newCategory = new Category({
+            category,
+            parent: parent || null,  // Set parent if provided, else it's a top-level category
+        });
   
-      await category.save();
+      await newCategory.save();
   
       res.status(201).json({ success: true, message: "Category added successfully" });
     } catch (error) {
@@ -67,6 +49,40 @@ app.post('/addCategory', async (req, res) => {
       }
     }
   });
+
+  app.get('/getCategories', async (req, res) => {
+    // try {
+        // Fetch categories and populate their parent reference
+    //     const categories = await Category.find().populate('parent');
+
+    //     // Organize categories into parent-child structure
+    //     const categoryMap = {};
+    //     categories.forEach(cat => {
+    //         categoryMap[cat._id] = { ...cat._doc, subcategories: [] };
+    //     });
+
+    //     // Assign subcategories to their respective parents
+    //     const finalCategories = [];
+    //     categories.forEach(cat => {
+    //         if (cat.parent) {
+    //             categoryMap[cat.parent._id].subcategories.push(categoryMap[cat._id]);
+    //         } else {
+    //             finalCategories.push(categoryMap[cat._id]);
+    //         }
+    //     });
+    //     console.log('back'+finalCategories);
+    //     res.json(finalCategories);
+    // } catch (error) {
+    //     res.status(500).json({ success: false, message: "Server error: " + error.message });
+    // }
+    try {
+        const categories = await Category.find().populate('parent', 'category');
+        res.json(categories);
+      } catch (error) {
+        res.status(500).json({ success: false, message: "Server error: " + error.message });
+      }
+});
+
 
   app.get('/list', async (req, res) => {
     const categories = await Category.find();
@@ -212,35 +228,67 @@ app.post('/login',async(req,res)=>{
 
  
 })
-app.put('/update/:id',verifyToken,async(req,res)=>{
-    const {updatedCategory}=req.body;
+app.patch('/update/:id',verifyToken,async(req,res)=>{
+   
     try{
-        const categoryId = req.params.id;
-        const findCategory = await Category.findById(categoryId);
-        if(!findCategory){
-            return res.status(404).json({ success: false, message: "User not found." });
-        }
-        if(updatedCategory){
-            findCategory.category=updatedCategory;
-        }
-         
-        await findCategory.save();
+        
+        const { category, parent } = req.body;
 
-        res.json({ success: true, message: "Category updated successfully.", findCategory });
+        const updatedCategory = await Category.findByIdAndUpdate(
+          req.params.id,
+          { category, parent: parent || null }, // Set parent to null if empty
+          { new: true } // Return the updated document
+        );
+        res.json({ success: true, message: "Category updated successfully", updatedCategory });
+        if (!updatedCategory) {
+          return res.status(404).json({ success: false, message: "Category not found" });
+        }
 
     }catch(err){
         res.status(500).json({ success: false, message: 'Error Updating category' });
     }
 })
-app.delete('/deleteCategory/:id',async(req,res)=>{
-    try{
-        const categoryId = req.params.id;
-        await Category.findByIdAndDelete(categoryId);
-        res.status(200).json({ success: true, message: 'Category deleted successfully' });
-    }catch(err){
-        res.status(500).json({ success: false, message: 'Error deleting category' });
+app.get("/getCategory/:id", async (req, res) => {
+    try {
+      const category = await Category.findById(req.params.id).populate("parent", "category");
+  
+      if (!category) {
+        return res.status(404).json({ success: false, message: "Category not found" });
+      }
+  
+      res.json(category);
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Server error: " + error.message });
     }
-})
+  });
+  app.delete("/deleteCategory/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Check if category exists
+        const category = await Category.findById(id);
+        if (!category) {
+            return res.status(404).json({ message: "Category not found" });
+        }
+
+        // Find all categories that are children of this category (recursively)
+        const findAllSubcategories = async (parentId) => {
+            const subcategories = await Category.find({ parent: parentId });
+            for (let sub of subcategories) {
+                await findAllSubcategories(sub._id); // Recursively delete all nested subcategories
+                await Category.findByIdAndDelete(sub._id);
+            }
+        };
+
+        await findAllSubcategories(id); // Delete all subcategories
+        await Category.findByIdAndDelete(id); // Delete the main category
+
+        res.json({ message: "Category and all subcategories deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Server error: " + error.message });
+    }
+});
+
 app.listen(port,(error)=>{
     if(!error){
         console.log('server running at port:'+port);
