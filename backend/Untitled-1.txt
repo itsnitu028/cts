@@ -6,3 +6,10 @@
      Description
      Image
      
+
+
+     product Name
+     Description
+     image
+     product type-simple(regular or selling price) or variable(color,size,)
+     Category

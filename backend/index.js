@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import cors from 'cors';
 import path from 'path';
 import { error } from 'console';
-
+import productRoutes from "./routes/productRoutes.js"
 const app = express();
 
 import Users from './model/Users.js';
@@ -19,7 +19,8 @@ app.use(
         methods:['GET','POST','PUT','DELETE','PATCH']
     })
 ) 
-
+app.use("/uploads", express.static("uploads")); // serve uploaded files
+app.use(productRoutes);
 mongoose.connect('mongodb+srv://itsnitu028:itsnitu@cluster0.0f1xe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 
 app.get("/",(req,res)=>{
@@ -297,3 +298,5 @@ app.listen(port,(error)=>{
        console.log('Error'+error);
     }
 })
+
+export default verifyToken;
