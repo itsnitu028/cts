@@ -10,6 +10,8 @@ import List from './Pages/List/List'
 import Orders from './Pages/Orders/Orders'
 import Update_Details from './Pages/Update_Details/Update_Details'
 import UpdateCategory from './Pages/UpdateCategory/UpdateCategory'
+import Add_Product from './Pages/Add Product/Add_Product'
+import Product_List from './Pages/Product List/Product_List'
 
 
 const App = () => {
@@ -26,10 +28,12 @@ const App = () => {
       <Route path='/home' element={<Home />} />
       <Route path='/change-password' element={<ChangePassword />} />
       <Route path='/add' element={<Add />} />
+      <Route path='/addproduct' element={<Add_Product />} />
       <Route path='/list' element={<List />} />
       <Route path='/orders' element={<Orders />} />
       <Route path='/update-details' element={<Update_Details />} />
       <Route path='/update/:id' element={<UpdateCategory />} />
+      <Route path='/listproduct' element={<Product_List />} />
       </Routes>  
 
     </div>

@@ -52,30 +52,7 @@ app.post('/addCategory', async (req, res) => {
   });
 
   app.get('/getCategories', async (req, res) => {
-    // try {
-        // Fetch categories and populate their parent reference
-    //     const categories = await Category.find().populate('parent');
-
-    //     // Organize categories into parent-child structure
-    //     const categoryMap = {};
-    //     categories.forEach(cat => {
-    //         categoryMap[cat._id] = { ...cat._doc, subcategories: [] };
-    //     });
-
-    //     // Assign subcategories to their respective parents
-    //     const finalCategories = [];
-    //     categories.forEach(cat => {
-    //         if (cat.parent) {
-    //             categoryMap[cat.parent._id].subcategories.push(categoryMap[cat._id]);
-    //         } else {
-    //             finalCategories.push(categoryMap[cat._id]);
-    //         }
-    //     });
-    //     console.log('back'+finalCategories);
-    //     res.json(finalCategories);
-    // } catch (error) {
-    //     res.status(500).json({ success: false, message: "Server error: " + error.message });
-    // }
+  
     try {
         const categories = await Category.find().populate('parent', 'category');
         res.json(categories);

@@ -46,4 +46,22 @@ router.post("/addProduct", upload.single("image"), async (req, res) => {
     }
   });
 
+  router.get('/getProducts', async (req, res) => {
+    try {
+      const products = await Product.find().populate('category');
+      res.json(products);
+      // console.log(products);
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to fetch products' });
+    }
+  });
+  router.delete('/deleteProduct/:id', async (req, res) => {
+    try {
+      await Product.findByIdAndDelete(req.params.id);
+      res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to delete product' });
+    }
+  });
+
 export default router;
