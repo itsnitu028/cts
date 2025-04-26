@@ -1,3 +1,5 @@
+
+<span style="font-size:20px">IT IS AN ADMIN PANEL WHICH CAN BE CUSTOMIZED ACCORDING TO CUSTOMER REQUIREMENTS.</span>
 ![image](https://github.com/user-attachments/assets/c9a00974-535d-4ea1-a5d9-eee1f23391d7)
 ![image](https://github.com/user-attachments/assets/d72678b9-d78a-4aa1-a8b5-572999a097a5)
 ![image](https://github.com/user-attachments/assets/73699dd7-5565-4bcd-b0f5-caee441a330c)
