@@ -63,5 +63,58 @@ router.post("/addProduct", upload.single("image"), async (req, res) => {
       res.status(500).json({ error: 'Failed to delete product' });
     }
   });
+  router.get("/getProduct/:id", async (req, res) => {
+    try {
+      
+      const product = await Product.findById(req.params.id).populate("category");
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+  
+      res.json(product);
+    } catch (err) {
+      console.error("Error fetching product:", err);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+  router.patch('/updateProduct/:id', upload.single('image'), async (req, res) => {
+    try {
+      const { name, description, type, category } = req.body;
+      const product = await Product.findById(req.params.id);
+  
+      if (!product) return res.status(404).json({ message: 'Product not found' });
+  
+      // Update common fields
+      product.name = name || product.name;
+      product.description = description || product.description;
+      product.type = type || product.type;
+      product.category = category || product.category;
+  
+      // Update image if new image uploaded
+      if (req.file) {
+        product.image = req.file.filename;
+      }
+  
+      // Update type-specific fields
+      if (type === 'simple') {
+        product.simple = {
+          regularPrice: Number(req.body.simple.regularPrice),
+          sellingPrice: Number(req.body.simple.sellingPrice)
+        };
+        product.variable = []; // Clear variable options if switching type
+      } else if (type === 'variable') {
+        product.variable = JSON.parse(req.body.variable); // Expects JSON string
+        product.simple = {};
+      }
+  
+      await product.save();
+      res.status(200).json({ message: 'Product updated successfully', product });
+  
+    } catch (error) {
+      console.error('Error updating product:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+  
 
 export default router;

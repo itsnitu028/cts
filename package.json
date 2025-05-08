@@ -1,0 +1,11 @@
+{
+  "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "admin": "cd admin && npm run dev", 
+  "backend": "cd backend && nodemon index.js", 
+  "dev": "concurrently -n \"frontend,backend\" -c \"bgBlue,bgYellow\" \"npm run admin\" \"npm run backend\""
+},
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

@@ -12,6 +12,7 @@ import Update_Details from './Pages/Update_Details/Update_Details'
 import UpdateCategory from './Pages/UpdateCategory/UpdateCategory'
 import Add_Product from './Pages/Add Product/Add_Product'
 import Product_List from './Pages/Product List/Product_List'
+import EditProduct from './Pages/EditProduct/EditProduct'
 
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
       <Route path='/update-details' element={<Update_Details />} />
       <Route path='/update/:id' element={<UpdateCategory />} />
       <Route path='/listproduct' element={<Product_List />} />
+      <Route path="/edit-product/:id" element={<EditProduct />} />
       </Routes>  
 
     </div>
