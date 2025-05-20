@@ -15,9 +15,13 @@ const ProductSchema = new mongoose.Schema({
     enum: ['simple', 'variable'],
     required: true
   },
+    stock: {
+    type: Number,
+    default: 0,
+  },
   simple: {
     regularPrice: Number,
-    sellingPrice: Number
+    sellingPrice: Number,
   },
   variable: [{
     color: String,

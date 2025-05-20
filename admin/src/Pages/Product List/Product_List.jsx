@@ -56,35 +56,6 @@ const Product_List = () => {
                   </tr>
                 </thead>
                 <tbody>
-                {/* {products.map((prod) => (
-                    <tr key={prod._id} className="border-b border-white hover:bg-gray-700">
-                      <td className="py-2">
-                        <img
-                          src={`http://localhost:4000/uploads/${prod.image}`}
-                          alt={prod.name}
-                          className="w-16 h-16 object-cover rounded"
-                        />
-                      </td>
-                      <td className="py-2">{prod.name}</td>
-                      <td className="py-2 capitalize">{prod.type}</td>
-                      <td className="py-2">{prod.category?.category || '—'}</td>
-                      <td className="py-2">{prod.description}</td>
-                      <td className="py-2">
-                        <div className="flex justify-center items-center gap-4">
-                          <button onClick={() => handleDelete(prod._id)}>
-                            <FaTrash className="text-red-600 hover:text-red-800 text-xl cursor-pointer" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                {products.length === 0 && (
-                    <tr>
-                      <td colSpan="6" className="text-center py-4 text-gray-300">
-                        No products found.
-                      </td>
-                    </tr>
-                  )} */}
               
   {products.map((prod) => (
     <tr key={prod._id} className="border-b border-white hover:bg-gray-700">
