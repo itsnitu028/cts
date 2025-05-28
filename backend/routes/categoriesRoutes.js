@@ -1,8 +1,8 @@
 import express from "express"
 const router = express.Router();
-import { getAllCategories,listCategories,updateCategory,addCategory,getCategoryById,deleteCategory } from "../controller/categoryController";
-import { checkAdmin } from "../middleware/checkAdmin";
-import { verifyToken } from "../middleware/verifyToken";
+import { getAllCategories,listCategories,updateCategory,addCategory,getCategoryById,deleteCategory } from "../controller/categoryController.js";
+import { checkAdmin } from "../middleware/checkAdmin.js";
+import { verifyToken } from "../middleware/verifyToken.js";
 
 router.post("/addCategory",checkAdmin,verifyToken, addCategory);
 router.get("/getCategories", getAllCategories);
