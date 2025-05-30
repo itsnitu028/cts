@@ -1,10 +1,15 @@
-const port=4000;
 import express from 'express';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import cors from 'cors';
 import path from 'path';
 import { error } from 'console';
+import dotenv from 'dotenv'
+import cookieparser from 'cookie-parser';
+dotenv.config();
+
+const port=process.env.PORT || 4000;
+
 
 
 import productRoutes from "./routes/productRoutes.js";
@@ -13,13 +18,15 @@ import customerRoutes from "./routes/customerRoutes.js";
 import categoriesRoutes from "./routes/categoriesRoutes.js";
 
 const app = express();
-
+app.use(express.json());
+app.use(cookieparser());
 import Users from './model/Users.js';
 import Category from './model/Category.js';
+import AuthRoutes from './routes/Auth.js';
 
 
 
-app.use(express.json());
+
 app.use(
     cors({
         origin:'http://localhost:5173',
@@ -27,13 +34,19 @@ app.use(
     })
 ) 
 app.use("/uploads", express.static("uploads")); // serve uploaded files
-
-mongoose.connect('mongodb+srv://itsnitu028:itsnitu@cluster0.0f1xe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+try{
+mongoose.connect(process.env.MONGO_DB);
+console.log("mongodb connected");
+}
+catch(error){
+    console.log(error);
+}
 
 app.get("/",(req,res)=>{
     res.send("Express App is Running");
 })
 
+app.use("/api/auth",AuthRoutes);
 app.use("/admin", adminRoutes);
 app.use("/customers", customerRoutes);
 app.use(productRoutes);

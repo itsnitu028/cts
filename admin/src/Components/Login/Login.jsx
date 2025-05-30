@@ -65,95 +65,68 @@ function Login() {
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-      <div className={`bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden ${state === "Sign Up" ? "max-h-[90vh]" : "max-h-[80vh]"}`}>
-        <div className="p-8">
-          <h1 className="text-3xl font-bold text-center mb-10 font-serif">{state}</h1>
+    <div className="min-h-[100vh] bg-black bg-opacity-50 flex items-center justify-center p-4">
+      <div className={`bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden ${state === "Sign Up" ? "min-h-[30vh] max-h-[130vh]" : "min-h-[30vh] max-h-[130vh]"}`}>
+        <div className="p-4">
+          <h1 className="text-medium font-bold text-center mb-8 font-serif">{state}</h1>
           
-          <div className="space-y-6">
+          <div className="space-y-1">
             {state==="Sign Up" && (
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Name</label>
+              <div className="space-y-1">
+                <label className="block text-sm font-bold text-gray-700">Name</label>
                 <input 
                   name="username" 
                   value={formData.username} 
                   onChange={changeHandler} 
                   type='text' 
                   placeholder="Your Name"
-                  className="w-full px-4 py-3 border border-gray-300 text-base focus:outline-none focus:border-red-500 rounded-lg"
+                  className="w-full px-4 py-2 border border-gray-300 text-base focus:outline-none focus:border-red-500 rounded-lg"
                 />
               </div>
             )}
             
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">Email</label>
+            <div className="space-y-1">
+              <label className="block text-sm font-bold text-gray-700">Email</label>
               <input 
                 name="email" 
                 value={formData.email} 
                 onChange={changeHandler}  
                 type='email' 
                 placeholder="Email Address"
-                className="w-full px-4 py-3 border border-gray-300 text-base focus:outline-none focus:border-red-500 rounded-lg"
+                className="w-full px-4 py-2 border border-gray-300 text-base focus:outline-none focus:border-red-500 rounded-lg"
               />
             </div>
             
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">Password</label>
+            <div className="space-y-1">
+              <label className="block text-sm font-bold text-gray-700">Password</label>
               <input 
                 name="password" 
                 value={formData.password} 
                 onChange={changeHandler}  
                 type='password' 
                 placeholder="Password"
-                className="w-full px-4 py-3 mb-3 border border-gray-300 text-base focus:outline-none focus:border-red-500 rounded-lg"
+                className="w-full px-4 py-2 mb-3 border border-gray-300 text-base focus:outline-none focus:border-red-500 rounded-lg"
               />
             </div>
-            
-            {state==="Sign Up" && (
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Mobile</label>
-                <input 
-                  name="mobile" 
-                  value={formData.mobile} 
-                  onChange={changeHandler} 
-                  type='tel' 
-                  placeholder="Mobile"
-                  className="w-full px-4 py-3 border border-gray-300 text-base focus:outline-none focus:border-red-500 rounded-lg"
-                />
-              </div>
-            )}
-            
-            {state==="Sign Up" && (
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Address</label>
-                <input 
-                  name="address" 
-                  value={formData.address} 
-                  onChange={changeHandler} 
-                  type='text' 
-                  placeholder="Address"
-                  className="w-full px-4 py-3 border border-gray-300 text-base focus:outline-none focus:border-red-500 rounded-lg"
-                />
-              </div>
-            )}
+       
           </div>
 
           <button 
             onClick={()=>{state==='Login'?login():signup()}}
-            className="w-full py-3 text-white bg-red-500 mt-8 border-none text-base font-medium cursor-pointer rounded-lg hover:bg-red-600 transition-colors"
+            className="w-full py-3 text-white bg-red-500 mt-2 border-none text-base font-medium cursor-pointer rounded-lg hover:bg-red-600 transition-colors"
           >
             Continue
           </button>
 
-          <div className="relative flex items-center justify-center my-8">
+          <div className="relative flex items-center justify-center my-2">
             <div className="flex-grow border-t border-gray-300"></div>
-            <span className="flex-shrink mx-4 text-gray-500 text-sm">OR</span>
+            <span className="flex-shrink mx-2 text-gray-500 text-sm">OR</span>
             <div className="flex-grow border-t border-gray-300"></div>
           </div>
 
           <button 
             onClick={handleGoogleLogin}
-            className="w-full py-3 bg-white text-gray-700 border border-gray-300 rounded-lg flex items-center justify-center gap-3 hover:bg-gray-50 transition-colors"
+            className="w-full py-3 bg-white text-gray-700 border border-gray-300 rounded-lg flex items-center justify-center gap-3 mb-2 hover:bg-gray-50 transition-colors "
           >
             <img 
               src="https://www.google.com/favicon.ico" 
@@ -163,24 +136,14 @@ function Login() {
             Continue with Google
           </button>
 
-          <p className="text-center mt-8 text-gray-600 text-sm">
+          <p className="text-center mt-6 text-gray-600 text-sm">
             {state==='Sign Up' ? (
-              <>Already have an Account? <span className="text-red-500 font-semibold cursor-pointer" onClick={()=>{setState('Login')}}>Login Here</span></>
+              <>Already have an Account? <span className="text-red-500 font-semibold cursor-pointer mt-4" onClick={()=>{setState('Login')}}>Login Here</span></>
             ) : (
-              <>Create an Account? <span className="text-red-500 font-semibold cursor-pointer" onClick={()=>{setState('Sign Up')}}>Click Here</span></>
+              <>Create an Account? <span className="text-red-500 font-semibold cursor-pointer mt-4" onClick={()=>{setState('Sign Up')}}>Click Here</span></>
             )}
           </p>
 
-          <div className="flex items-center gap-3 mt-8 text-gray-600">
-            <input 
-              type="checkbox" 
-              id="mycheckbox" 
-              className="w-4 h-4 accent-red-500"
-            />
-            <label htmlFor="mycheckbox" className="text-sm">
-              By Continuing, I Agree to the terms of use and Privacy Policy
-            </label>
-          </div>
         </div>
       </div>
     </div>
