@@ -5,6 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { MdAddBox } from 'react-icons/md';
 
 const Add = () => {
+  const token = document.cookie
+  .split('; ')
+  .find(row => row.startsWith('token='))
+  ?.split('=')[1] || localStorage.getItem('auth-token');
+
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [category, setCategory] = useState('');
@@ -24,6 +29,7 @@ const Add = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
           category: category,
@@ -34,7 +40,7 @@ const Add = () => {
       const data = await response.json();
       if (data.success) {
         setMessage(data.message);
-        setTimeout(() => navigate('/list'), 1000);
+        setTimeout(() => navigate('//api/admin/list'), 1000);
       } else {
         setMessage(data.message);
       }

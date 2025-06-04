@@ -26,17 +26,17 @@ const App = () => {
        <Toaster />
       <Routes >
       <Route index path='/' element={<Home /> } />
-      <Route path='/login' element={<Login />}/>
-      <Route path='/home' element={<Home />} />
-      <Route path='/change-password' element={<ChangePassword />} />
-      <Route path='/add' element={<Add />} />
-      <Route path='/addproduct' element={<Add_Product />} />
-      <Route path='/list' element={<List />} />
-      <Route path='/orders' element={<Orders />} />
-      <Route path='/update-details' element={<Update_Details />} />
-      <Route path='/update/:id' element={<UpdateCategory />} />
-      <Route path='/listproduct' element={<Product_List />} />
-      <Route path="/edit-product/:id" element={<EditProduct />} />
+      <Route path='/api/admin/login' element={<Login />}/>
+      <Route path='/api/admin/home' element={<Home />} />
+      <Route path='/api/admin/change-password' element={<ChangePassword />} />
+      <Route path='/api/admin/add' element={<Add />} />
+      <Route path='/api/admin/addproduct' element={<Add_Product />} />
+      <Route path='/api/admin/list' element={<List />} />
+      <Route path='/api/admin/orders' element={<Orders />} />
+      <Route path='/api/admin/update-details' element={<Update_Details />} />
+      <Route path='/api/admin/update/:id' element={<UpdateCategory />} />
+      <Route path='/api/admin/listproduct' element={<Product_List />} />
+      <Route path="/api/admin/edit-product/:id" element={<EditProduct />} />
       </Routes>  
 
     </div>

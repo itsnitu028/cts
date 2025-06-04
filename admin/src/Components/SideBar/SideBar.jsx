@@ -12,42 +12,42 @@ const SideBar = () => {
   return (
     <div className="w-64 h-full bg-[#1f293b] text-white flex flex-col py-4 px-4 space-y-2 shadow-lg">
 
-      <NavLink to="/home" className={linkClasses} style={{ textDecoration: 'none' }}>
+      <NavLink to="/api/admin/home" className={linkClasses} style={{ textDecoration: 'none' }}>
         <Home className="w-5 h-5" />
         <span>Dashboard</span>
       </NavLink>
 
-      <NavLink to="/update-details" className={linkClasses} style={{ textDecoration: 'none' }}>
+      <NavLink to="/api/admin/update-details" className={linkClasses} style={{ textDecoration: 'none' }}>
         <User className="w-5 h-5" />
         <span>Update Profile</span>
       </NavLink>
 
-      <NavLink to="/change-password" className={linkClasses} style={{ textDecoration: 'none' }}>
+      <NavLink to="/api/admin/change-password" className={linkClasses} style={{ textDecoration: 'none' }}>
         <Lock className="w-5 h-5" />
         <span>Change Password</span>
       </NavLink>
 
-      <NavLink to="/add" className={linkClasses} style={{ textDecoration: 'none' }}>
+      <NavLink to="/api/admin/add" className={linkClasses} style={{ textDecoration: 'none' }}>
         <PlusCircle className="w-5 h-5" />
         <span>Add Category</span>
       </NavLink>
 
-      <NavLink to="/list" className={linkClasses} style={{ textDecoration: 'none' }}>
+      <NavLink to="/api/admin/list" className={linkClasses} style={{ textDecoration: 'none' }}>
         <List className="w-5 h-5" />
         <span>List Category</span>
       </NavLink>
 
-      <NavLink to="/addproduct" className={linkClasses} style={{ textDecoration: 'none' }}>
+      <NavLink to="/api/admin/addproduct" className={linkClasses} style={{ textDecoration: 'none' }}>
         <Package className="w-5 h-5" />
         <span>Add Product</span>
       </NavLink>
 
-      <NavLink to="/listproduct" className={linkClasses} style={{ textDecoration: 'none' }}>
+      <NavLink to="/api/admin/listproduct" className={linkClasses} style={{ textDecoration: 'none' }}>
         <ClipboardList className="w-5 h-5" />
         <span>Product List</span>
       </NavLink>
 
-      <NavLink to="/orders" className={linkClasses} style={{ textDecoration: 'none' }}>
+      <NavLink to="/api/admin/orders" className={linkClasses} style={{ textDecoration: 'none' }}>
         <ShoppingCart className="w-5 h-5" />
         <span>Orders</span>
       </NavLink>
