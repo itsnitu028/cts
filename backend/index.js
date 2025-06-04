@@ -5,7 +5,8 @@ import cors from 'cors';
 import path from 'path';
 import { error } from 'console';
 import dotenv from 'dotenv'
-import cookieparser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
+
 dotenv.config();
 
 const port=process.env.PORT || 4000;
@@ -13,26 +14,30 @@ const port=process.env.PORT || 4000;
 
 
 import productRoutes from "./routes/productRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js";
 import customerRoutes from "./routes/customerRoutes.js";
 import categoriesRoutes from "./routes/categoriesRoutes.js";
-
 const app = express();
-app.use(express.json());
-app.use(cookieparser());
-import Users from './model/Users.js';
-import Category from './model/Category.js';
-import AuthRoutes from './routes/Auth.js';
-
-
-
-
+app.use(cookieParser());
 app.use(
     cors({
+   
         origin:'http://localhost:5173',
+        credentials:true,
         methods:['GET','POST','PUT','DELETE','PATCH']
     })
 ) 
+
+app.use(express.json());
+
+
+import Users from './model/Users.js';
+import Category from './model/Category.js';
+import AuthRoutes from './routes/Auth.js';
+import adminRoutes from './routes/adminRoutes.js';
+
+
+
+
 app.use("/uploads", express.static("uploads")); // serve uploaded files
 try{
 mongoose.connect(process.env.MONGO_DB);
@@ -46,8 +51,8 @@ app.get("/",(req,res)=>{
     res.send("Express App is Running");
 })
 
-app.use("/api/auth",AuthRoutes);
-app.use("/admin", adminRoutes);
+app.use("/api/auth",AuthRoutes);    ``
+app.use("/api/admin", adminRoutes);
 app.use("/customers", customerRoutes);
 app.use(productRoutes);
 app.use(categoriesRoutes)

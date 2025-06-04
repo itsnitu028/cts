@@ -34,13 +34,15 @@ const Login=async(req,res)=>{
         }
        const isValidPassword=await bcryptjs.compare(password,user.password);
        if(!isValidPassword){
-           res.status(404).json({success:false,message:"Invalid Credentials"});
+           return res.status(404).json({success:false,message:"Invalid Credentials"});
        }
        const token=jwt.sign({userId:user._id},process.env.JWT);
        res.cookie("token",token,{
-        httpOnly:true,
-        secure:false,
-        maxAge:36000000
+          httpOnly: true,
+           secure: false, // true in production
+           sameSite: 'lax',
+           maxAge: 36000000, // 10 hours
+           
        })
         res.status(200).json({success:true,message:"Login successfully",user,token});
 
@@ -54,7 +56,7 @@ const Login=async(req,res)=>{
 const Logout=async(req,res)=>{
     try{
         res.clearCookie("token");
-        res.send(200).json({message:"User Logout successfully"});
+        res.status(200).json({message:"User Logout successfully"});
     }
     catch(error){
         res.status(500).json({success:false,message:"Internal Server Error"});

@@ -1,10 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('auth-token');
+
+  toast.success('Logged out successfully!', { autoClose: 500 });
+
+  setTimeout(() => {
     window.location.replace('/');
+  }, 2000);
   };
 
   return (

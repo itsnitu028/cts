@@ -6,4 +6,5 @@ AuthRoutes.post('/register',register)
 AuthRoutes.post('/login',Login)
 AuthRoutes.post('/logout',Logout)
 
+
 export default AuthRoutes;

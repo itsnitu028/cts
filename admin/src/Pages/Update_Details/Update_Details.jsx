@@ -7,6 +7,7 @@ const Update_Details = () => {
     name: '',
     mobile: '',
     address: '',
+    email: '',
   });
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
@@ -18,10 +19,13 @@ const Update_Details = () => {
       try {
         if (!token) return;
 
-        const response = await fetch('http://localhost:4000/home', {
+  
+        const response = await fetch('http://localhost:4000/api/admin/home', {
           method: 'GET',
+          credentials: 'include',
           headers: {
-            'auth-token': token,
+             'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
           },
         });
 
@@ -51,12 +55,13 @@ const Update_Details = () => {
     try {
       if (!token) return;
 
-      const response = await fetch('http://localhost:4000/update-details', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'auth-token': token,
-        },
+      const response = await fetch('http://localhost:4000/api/admin/update-details', {
+        method: 'PATCH',
+          credentials: 'include',
+          headers: {
+             'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+          },
         body: JSON.stringify(userDetails),
       });
 
@@ -108,6 +113,17 @@ const Update_Details = () => {
                 </div>
 
                 <div>
+                  <label className="block mb-1 font-semibold text-white/80">Email</label>
+                  <input
+                     type="email"
+                      name="email"
+                       value={userDetails?.email || ''}
+                    onChange={handleChange}
+                    className="w-full p-3 rounded-lg bg-white/10 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/40"
+                  />
+                </div>
+
+                <div>
                   <label className="block mb-1 font-semibold text-white/80">Phone</label>
                   <input
                     type="tel"
@@ -151,13 +167,8 @@ export default Update_Details;
 
 
 
-// import React from 'react'
-// import './Update_Details.css'
-// import SideBar from '../../Components/SideBar/SideBar'
-// import { useState,useEffect } from 'react'
 
-// const Update_Details = () => {
-//   const [userDetails, setUserDetails] = useState({
+{/* //   const [userDetails, setUserDetails] = useState({
 //     name: '',
 //     mobile: '',
 //     address: '',
@@ -277,4 +288,4 @@ export default Update_Details;
 //   )
 // }
 
-// export default Update_Details;
+// export default Update_Details; */}

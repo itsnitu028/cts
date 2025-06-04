@@ -12,10 +12,12 @@ const Home = () => {
       try {
         if (!token) return;
 
-        const response = await fetch('http://localhost:4000/home', {
+        const response = await fetch('http://localhost:4000/api/admin/home', {
           method: 'GET',
+          credentials: 'include',
           headers: {
-            'auth-token': token,
+             'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
           },
         });
 

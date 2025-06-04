@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 let apiurl= 'http://localhost:4000';
 
 function Login() {
@@ -15,7 +16,7 @@ function Login() {
        console.log('hi');
        let responseData;
 
-       await fetch(apiurl+'/login',{
+       await fetch(apiurl+'/api/auth/login',{
         method:'POST',
         headers:{
           Accept:'application/form-data',
@@ -24,13 +25,19 @@ function Login() {
         body:JSON.stringify(formData),
        }).then((response)=>response.json()).then((data)=>responseData=data)
   
-       if(responseData.success){
-        localStorage.setItem('auth-token',responseData.token);
-        localStorage.setItem('user',responseData.currUser);
-        window.location.replace('/');
-       }
+  if (responseData.success) {
+  localStorage.setItem('auth-token', responseData.token);
+  localStorage.setItem('user', responseData.currUser);
+
+  toast.success(responseData.message, { autoClose: 2000 }); // Show toast for 2 seconds
+
+  setTimeout(() => {
+    window.location.replace('/');
+  }, 1000); // Redirect after 2 seconds
+}
+
        else{
-         alert(responseData.errors);
+          toast.error(responseData.message, { autoClose: 2000 }); 
        }
   }
 
@@ -41,7 +48,7 @@ function Login() {
   const signup=async()=>{
     console.log('hi');
      let responseData;
-     await fetch(apiurl+'/signup',{
+     await fetch(apiurl+'/api/auth/register',{
       method:'POST',
       headers:{
         Accept:'application/form-data',

@@ -13,6 +13,7 @@ import UpdateCategory from './Pages/UpdateCategory/UpdateCategory'
 import Add_Product from './Pages/Add Product/Add_Product'
 import Product_List from './Pages/Product List/Product_List'
 import EditProduct from './Pages/EditProduct/EditProduct'
+import {Toaster} from "react-hot-toast";
 
 
 const App = () => {
@@ -22,7 +23,7 @@ const App = () => {
   return (
     <div>
        {!noNavbarPaths.includes(location.pathname) && <Navbar />}
-  
+       <Toaster />
       <Routes >
       <Route index path='/' element={<Home /> } />
       <Route path='/login' element={<Login />}/>

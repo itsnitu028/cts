@@ -3,6 +3,7 @@ import SideBar from '../SideBar/SideBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
+import {toast} from "react-hot-toast";
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState('');
@@ -48,18 +49,18 @@ const ChangePassword = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:4000/change-password', {
+      const response = await fetch('http://localhost:4000/api/admin/change-password', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'auth-token': token,
-        },
+             'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+          },
         body: JSON.stringify({ oldPassword, newPassword }),
       });
 
       const result = await response.json();
       if (result.success) {
-        setMessage('Password changed successfully.');
+        toast.success("Password changed successfully", { autoClose: 2000 });
         setOldPassword('');
         setNewPassword('');
         setConfirmPassword('');
