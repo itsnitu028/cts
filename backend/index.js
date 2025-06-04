@@ -40,7 +40,8 @@ import adminRoutes from './routes/adminRoutes.js';
 
 app.use("/uploads", express.static("uploads")); // serve uploaded files
 try{
-mongoose.connect(process.env.MONGO_DB);
+// mongoose.connect(process.env.MONGO_DB);
+mongoose.connect("mongodb+srv://itsnitu028:itsnitu@cluster0.0f1xe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
 console.log("mongodb connected");
 }
 catch(error){
