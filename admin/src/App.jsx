@@ -15,7 +15,7 @@ import Product_List from './Pages/Product List/Product_List'
 import EditProduct from './Pages/EditProduct/EditProduct'
 import CustomerHome from './CustomerComponents/CustomerHome/CustomerHome'
 import {Toaster} from "react-hot-toast";
-import bg from "../src/assets/bg.png"
+import bg from "../src/assets/image.png"
 
 
 const App = () => {
@@ -32,7 +32,7 @@ const App = () => {
     shouldShowBg ? (
       <div
         style={{
-          background: `url(${bg}) no-repeat center center/cover`,
+          background: `url(${bg}) no-repeat center center/cover `,
           minHeight: '100vh',
         }}
       >
