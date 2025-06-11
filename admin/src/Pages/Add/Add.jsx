@@ -40,7 +40,7 @@ const Add = () => {
       const data = await response.json();
       if (data.success) {
         setMessage(data.message);
-        setTimeout(() => navigate('//api/admin/list'), 1000);
+        setTimeout(() => navigate('/api/admin/list'), 1000);
       } else {
         setMessage(data.message);
       }

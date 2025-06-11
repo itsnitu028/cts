@@ -5,6 +5,10 @@ import SideBar from "../../Components/SideBar/SideBar";
 import { MdEdit } from "react-icons/md";
 
 const UpdateCategory = () => {
+  const token = document.cookie
+  .split('; ')
+  .find(row => row.startsWith('token='))
+  ?.split('=')[1] || localStorage.getItem('auth-token');
   const { id } = useParams();
   const navigate = useNavigate();
   const [category, setCategory] = useState("");
@@ -38,19 +42,18 @@ const UpdateCategory = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            "auth-token": localStorage.getItem("auth-token"),
+             'Authorization': `Bearer ${token}`,
           },
         }
       );
 
       setMessage(response.data.message);
-      setTimeout(() => navigate("/list"), 1000);
+      setTimeout(() => navigate("/api/admin/list"), 1000);
     } catch (err) {
       setMessage("Failed to update category");
     }
   };
 
-  const token = localStorage.getItem("auth-token");
 
   return (
     <>

@@ -11,6 +11,10 @@ const EditProduct = () => {
   const [categories, setCategories] = useState([]);
   const [message, setMessage] = useState("");
 
+   const token = document.cookie
+  .split('; ')
+  .find(row => row.startsWith('token='))
+  ?.split('=')[1] || localStorage.getItem('auth-token');
   const {
     register,
     handleSubmit,
@@ -40,7 +44,11 @@ const EditProduct = () => {
   });
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/getProduct/${id}`).then((res) => {
+    axios.get(`http://localhost:4000/getProduct/${id}`,{
+                headers: {
+    Authorization: `Bearer ${token}`,
+  },
+    }).then((res) => {
       const data = res.data;
       const categoryId = typeof data.category === "object" ? data.category._id : data.category;
       const safeData = {
@@ -84,12 +92,12 @@ const EditProduct = () => {
       await axios.patch(`http://localhost:4000/updateProduct/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "auth-token": localStorage.getItem("auth-token"),
+         'Authorization': `Bearer ${token}`,
         },
       });
 
       setMessage("Product updated successfully!");
-      setTimeout(() => navigate("/home"), 1500);
+      setTimeout(() => navigate("/api/admin/home"), 1500);
     } catch (error) {
       console.error(error);
       setMessage("Failed to update product.");

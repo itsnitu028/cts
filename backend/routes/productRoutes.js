@@ -15,10 +15,10 @@ const storage = multer.diskStorage({
   const upload = multer({ storage });
 
 router.post("/addProduct", upload.single("image"),checkAdmin, addProduct);
-router.get('/getProducts',verifyToken,getProducts );
-router.delete('/deleteProduct/:id',verifyToken,checkAdmin,deleteProduct);
-router.get("/getProduct/:id",verifyToken,getProductId );
-router.patch('/updateProduct/:id', upload.single('image'),verifyToken, checkAdmin,updateProduct );
+router.get('/getProducts',getProducts );
+router.delete('/deleteProduct/:id',checkAdmin,deleteProduct);
+router.get("/getProduct/:id",checkAdmin,getProductId );
+router.patch('/updateProduct/:id', upload.single('image'), checkAdmin,updateProduct );
   
 
 export default router;

@@ -12,7 +12,10 @@ const Add_Product = () => {
   const [message, setMessage] = useState('');
 
   const watchType = watch('type');
-  const token = localStorage.getItem('auth-token');
+  const token = document.cookie
+  .split('; ')
+  .find(row => row.startsWith('token='))
+  ?.split('=')[1] || localStorage.getItem('auth-token');
 
   useEffect(() => {
     axios
@@ -48,11 +51,15 @@ const Add_Product = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:4000/addProduct', formData);
+      const response = await axios.post('http://localhost:4000/addProduct', formData,{
+          headers: {
+             'Authorization': `Bearer ${token}`,
+          },
+      });
       if (response.data.success) {
         setMessage('Product added successfully');
         reset();
-        setTimeout(() => navigate('/home'), 1000);
+        setTimeout(() => navigate('/api/admin/home'), 1000);
       } else {
         setMessage(response.data.message);
       }

@@ -7,6 +7,11 @@ import { MdEdit } from "react-icons/md";
 import { FaFolderOpen } from "react-icons/fa";
 
 const List = () => {
+  const token =
+  document.cookie
+    .split('; ')
+    .find((row) => row.startsWith('token='))
+    ?.split('=')[1] || localStorage.getItem('auth-token');
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -42,7 +47,11 @@ const List = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this category?')) {
       try {
-        await axios.delete(`http://localhost:4000/deleteCategory/${id}`);
+        await axios.delete(`http://localhost:4000/deleteCategory/${id}`,{ 
+           headers: {
+          Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },});
         setCategories((prevCategories) =>
           prevCategories.filter((category) => category._id !== id)
         );
@@ -52,7 +61,7 @@ const List = () => {
     }
   };
 
-  const token = localStorage.getItem('auth-token');
+  
 
   return (
     <>
@@ -96,7 +105,7 @@ const List = () => {
                           </td>
                           <td className="py-2 ">
                           <div className="flex justify-center items-center gap-4">
-    <Link to={`/update/${cat._id}`}>
+    <Link to={`/api/admin/update/${cat._id}`}>
       <MdEdit className="text-indigo-500 hover:text-indigo-700 text-xl cursor-pointer" />
     </Link>
     <button onClick={() => handleDelete(cat._id)}>

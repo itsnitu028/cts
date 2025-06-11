@@ -1,5 +1,4 @@
 import React from 'react'
-import './Orders.css'
 import SideBar from '../../Components/SideBar/SideBar'
 
 const Orders = () => {

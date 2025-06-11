@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { toast } from "react-hot-toast";
 let apiurl= 'http://localhost:4000';
 
 function Login() {
+     const navigate = useNavigate();
   const [state,setState]=useState('Login');
   const [formData,setFormData]=useState({
     username:'',
@@ -13,7 +15,8 @@ function Login() {
   })
 
   const login=async()=>{
-       console.log('hi');
+      //  console.log('hi');
+   
        let responseData;
 
        await fetch(apiurl+'/api/auth/login',{
@@ -32,7 +35,7 @@ function Login() {
   toast.success(responseData.message, { autoClose: 2000 }); // Show toast for 2 seconds
 
   setTimeout(() => {
-    window.location.replace('/');
+     navigate('/api/admin/home');
   }, 1000); // Redirect after 2 seconds
 }
 
@@ -57,11 +60,18 @@ function Login() {
       body:JSON.stringify(formData),
      }).then((response)=>response.json()).then((data)=>responseData=data)
 
-     if(responseData.success){
-      localStorage.setItem('auth-token',responseData.token);
-      localStorage.setItem('user',responseData.currUser);
-      window.location.replace('/');
-     }
+    
+  if (responseData.success) {
+  localStorage.setItem('auth-token', responseData.token);
+  localStorage.setItem('user', responseData.currUser);
+
+  toast.success(responseData.message, { autoClose: 2000 }); // Show toast for 2 seconds
+
+  setTimeout(() => {
+     navigate('/api/admin/home');
+  }, 1000); // Redirect after 2 seconds
+}
+
      else{
        alert(responseData.errors);
      }
@@ -72,7 +82,7 @@ function Login() {
   }
 
   return (
-    <div className="min-h-[100vh] bg-black bg-opacity-50 flex items-center justify-center p-4">
+    <div className="min-h-[100vh] bg-black bg-opacity-50 flex items-center justify-center ">
       <div className={`bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden ${state === "Sign Up" ? "min-h-[30vh] max-h-[130vh]" : "min-h-[30vh] max-h-[130vh]"}`}>
         <div className="p-4">
           <h1 className="text-medium font-bold text-center mb-8 font-serif">{state}</h1>

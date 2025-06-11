@@ -13,19 +13,44 @@ import UpdateCategory from './Pages/UpdateCategory/UpdateCategory'
 import Add_Product from './Pages/Add Product/Add_Product'
 import Product_List from './Pages/Product List/Product_List'
 import EditProduct from './Pages/EditProduct/EditProduct'
+import CustomerHome from './CustomerComponents/CustomerHome/CustomerHome'
 import {Toaster} from "react-hot-toast";
+import bg from "../src/assets/bg.png"
 
 
 const App = () => {
   const location = useLocation();
-  const noNavbarPaths = ['/login'];
+  const isAdminRoute = location.pathname.startsWith('/api/admin');
+
+    const isAuthenticated = !!localStorage.getItem('auth-token');
+
+  const isLoginPage = location.pathname === '/api/admin/login';
+  const isAdminHome = location.pathname === '/api/admin/home';
+  const shouldShowBg = (isLoginPage || isAdminHome) && !isAuthenticated;
+
+   const Wrapper = ({ children }) =>
+    shouldShowBg ? (
+      <div
+        style={{
+          background: `url(${bg}) no-repeat center center/cover`,
+          minHeight: '100vh',
+        }}
+      >
+        {children}
+      </div>
+    ) : (
+      <>{children}</>
+    );
 
   return (
-    <div>
-       {!noNavbarPaths.includes(location.pathname) && <Navbar />}
+    <Wrapper>
+       {isAdminRoute && <Navbar />}
        <Toaster />
       <Routes >
-      <Route index path='/' element={<Home /> } />
+         {/* Customer routes */}
+      <Route index path='/' element={<CustomerHome /> } />
+
+       {/* Admin routes */}
       <Route path='/api/admin/login' element={<Login />}/>
       <Route path='/api/admin/home' element={<Home />} />
       <Route path='/api/admin/change-password' element={<ChangePassword />} />
@@ -39,7 +64,7 @@ const App = () => {
       <Route path="/api/admin/edit-product/:id" element={<EditProduct />} />
       </Routes>  
 
-    </div>
+    </Wrapper>
   )
 }
 

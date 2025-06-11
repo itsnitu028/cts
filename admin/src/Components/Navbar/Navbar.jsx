@@ -1,20 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
 const Navbar = () => {
+  const navigate = useNavigate(); 
   const handleLogout = () => {
     localStorage.removeItem('auth-token');
 
   toast.success('Logged out successfully!', { autoClose: 500 });
 
   setTimeout(() => {
-    window.location.replace('/');
+     navigate('/api/admin/home');
   }, 2000);
   };
 
   return (
-    <div className="w-full h-32 bg-[#1f2937] text-white flex items-center justify-between px-8 shadow-md">
+    <div className="w-full h-20 bg-[#1f2937] text-white flex items-center justify-between p-8 shadow-md">
       {/* Modern Font, Increased Size */}
       <h1 className="text-3xl font-semibold font-sans tracking-wide">Admin Panel</h1>
 
