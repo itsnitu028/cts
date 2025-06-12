@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import logo from "../../assets/logo.png"
+import logo from "../../assets/logo-new.png"
 import { IoCartOutline } from "react-icons/io5";
+import { FaUserCircle } from 'react-icons/fa'; 
 function Navbar() {
 
     const [cartOpen, setCartOpen] = useState(false);
@@ -9,7 +10,7 @@ function Navbar() {
   const [servicesOpen, setServicesOpen] = useState(false);
 
   return (
- <div className="bg-white shadow-sm w-full px-6 py-3 flex items-center">
+ <div className="bg-gray-50 shadow-sm w-full px-6  flex items-center">
   {/* Logo */}
   <div className="text-xl font-bold text-gray-800">
     <a className="cursor-pointer">
@@ -21,7 +22,7 @@ function Navbar() {
   <div className="flex items-center space-x-6 ml-auto">
     {/* Navigation Links */}
     <ul className="flex space-x-6 text-gray-700 items-center">
-      <li className="hover:bg-gray-100 px-2 rounded-s-md cursor-pointer">Home</li>
+      <li className="mt-2 hover:bg-gray-200 px-2 cursor-pointer">Home</li>
       <li className="relative">
         <button
           onClick={() => {
@@ -29,19 +30,20 @@ function Navbar() {
             setCartOpen(false);
             setProfileOpen(false);
           }}
-          className="hover:text-blue-600 cursor-pointer"
+          className="mt-2 hover:bg-gray-200 px-2 cursor-pointer"
         >
-          Services
+          Category
         </button>
         {servicesOpen && (
           <ul className="absolute top-8 left-0 w-40 bg-white shadow-md rounded-md py-2 z-20">
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Web Development</li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">App Development</li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">UI/UX Design</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">X</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Y</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Z</li>
           </ul>
         )}
       </li>
-      <li className="hover:text-blue-600 cursor-pointer">About</li>
+      <li className="mt-2 hover:bg-gray-200 px-2 cursor-pointer">Products</li>
+       <li className="mt-2 hover:bg-gray-200 px-2 cursor-pointer">About</li>
     </ul>
 
     {/* Cart */}
@@ -52,7 +54,7 @@ function Navbar() {
           setProfileOpen(false);
           setServicesOpen(false);
         }}
-        className="relative p-2 rounded-full hover:bg-gray-100 transition"
+        className="relative p-2 rounded-full hover:bg-gray-200 transition"
       >
         <IoCartOutline className="h-6 w-6 text-gray-700" />
         <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5">
@@ -62,7 +64,7 @@ function Navbar() {
       {cartOpen && (
         <div className="absolute right-0 w-56 bg-white shadow-md rounded-md p-4 z-20">
           <p className="font-semibold text-gray-800">8 Items</p>
-          <p className="text-sm text-gray-500 mb-3">Subtotal: $999</p>
+          <p className="text-sm text-gray-500 mb-3">Subtotal: Rs.999</p>
           <button className="w-full bg-blue-600 text-white py-1.5 rounded hover:bg-blue-700 transition">
             View Cart
           </button>
@@ -80,11 +82,7 @@ function Navbar() {
         }}
         className="rounded-full border-2 border-transparent hover:border-gray-300 transition"
       >
-        <img
-          className="w-10 h-10 rounded-full"
-          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-          alt="User"
-        />
+         <FaUserCircle className="text-3xl text-white/80 bg-gray-400 rounded-2xl" />
       </button>
       {profileOpen && (
         <ul className="absolute right-0 mt-2 w-48 bg-white shadow-md rounded-md py-2 z-20 text-sm text-gray-700">
